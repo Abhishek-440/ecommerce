@@ -4,7 +4,7 @@ function App() {
   return (
     <div className='container'>
       <div className="d-flex align-middle">
-        <h1>HELLO</h1>
+        <h1>Login</h1>
       </div>
     </div>
   );
