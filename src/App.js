@@ -1,12 +1,12 @@
-import './App.css';
+import "./App.css";
+import React from "react";
+import AppRoute from "./Routes/AppRoute";
 
 function App() {
   return (
-    <div className='container'>
-      <div className="d-flex align-middle">
-        <h1>Login</h1>
-      </div>
-    </div>
+    //<div>
+    <AppRoute />
+    //</div>
   );
 }
 
