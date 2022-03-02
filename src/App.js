@@ -1,12 +1,12 @@
-import './App.css';
+import { Container } from "react-bootstrap";
+import { LoginPage } from "./pages";
+import Routes from "./routes.js";
 
 function App() {
   return (
-    <div className='container'>
-      <div className="d-flex align-middle">
-        <h1>Login</h1>
-      </div>
-    </div>
+    <Container>
+      <Routes />
+    </Container>
   );
 }
 
