@@ -15,11 +15,11 @@ const schema = yup.object({
   dob: yup.date().min(new Date(1980, 0, 1)).required("This Field is required."),
   password: yup
     .string()
-    .required("Password is mendatory")
+    .required("Password is mandatory")
     .min(3, "Password must be at 3 char long"),
   confirmPwd: yup
     .string()
-    .required("Password is mendatory")
+    .required("Password is mandatory")
     .oneOf([yup.ref("password")], "Passwords does not match"),
 });
 
@@ -48,7 +48,8 @@ const Register = () => {
       address: data.address,
       email: data.email,
       number: data.number,
-      dob: data.dob,
+      date_of_birth: data.dob,
+      active: true,
       password: data.password,
     };
     axios
@@ -119,7 +120,7 @@ const Register = () => {
               />
 
               <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
+                We will never share your email with anyone else.
               </Form.Text>
             </Form.Group>
 
@@ -142,7 +143,7 @@ const Register = () => {
               as={Col}
               className="mb-3"
               controlId="formDateofBirth"
-              name="dob"
+              name="date_of_birth"
             >
               <Form.Label>Date Of Birth</Form.Label>
               <DatePicker
