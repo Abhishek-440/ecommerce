@@ -23,7 +23,7 @@ const schema = yup.object({
     .oneOf([yup.ref("password")], "Passwords does not match"),
 });
 
-const Register = ({ value }) => {
+const Register = () => {
   const [data, setData] = useState({
     username: "",
     address: "",
@@ -54,8 +54,17 @@ const Register = ({ value }) => {
     axios
       .post("https://localhost:3005/api/register", userData)
       .then((response) => {
-        console.log(response.status);
-        console.log(response.data.token);
+        console.log(response);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log("server responded");
+        } else if (error.request) {
+          console.log("network error");
+        } else {
+          console.log(error);
+        }
       });
   };
   const { onSubmit } = useForm({
