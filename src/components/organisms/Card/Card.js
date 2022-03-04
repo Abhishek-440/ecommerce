@@ -1,4 +1,4 @@
-import { Container, Card, Row, Col } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import React from "react";
 
 const CardComponent = (incomeData) => {

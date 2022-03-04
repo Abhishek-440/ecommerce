@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { axios, apiUrl } from "../utils";
 import { Button, Container, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const storedJwt = localStorage.getItem("token");
+  // eslint-disable-next-line no-unused-vars
   const [jwt, setJwt] = useState(storedJwt || null);
 
   const [loginData, setLoginData] = useState({
@@ -92,7 +93,7 @@ const Login = () => {
 
           <Form.Group className="text-center">
             <Form.Text>
-              Don't have an account? <br />
+              {`Don't have an account?`} <br />
               <Link to="/register"> Create an account!</Link>
             </Form.Text>
           </Form.Group>

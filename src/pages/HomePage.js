@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Container, Card, Row, Col, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Row, Button } from "react-bootstrap";
 import { axios, apiUrl } from "../utils";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/organisms/Card/Card";
@@ -62,6 +62,7 @@ function Home() {
         {income.incomes?.map((item, id) => (
           // <li>{JSON.stringify(item)}</li>
           <CardComponent
+            key={id}
             title={item.title}
             amount={item.amount}
             date={item.date}
@@ -79,6 +80,7 @@ function Home() {
         {expense.expenses?.map((item, id) => (
           // <li>{JSON.stringify(item)}</li>
           <CardComponent
+            key={id}
             title={item.title}
             amount={item.amount}
             date={item.date}
