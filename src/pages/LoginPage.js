@@ -1,30 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
-import apiUrl from "../utils";
+import { axios, apiUrl } from "../utils";
 import { Button, Container, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  axios.interceptors.request.use(
-    (config) => {
-      const { origin } = new URL(config.url);
-
-      const allowedOrigins = [apiUrl];
-
-      const token = localStorage.getItem("token");
-
-      if (allowedOrigins.includes(origin)) {
-        config.headers.authorization = `Bearer ${token}`;
-      }
-
-      return config;
-    },
-
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
   const navigate = useNavigate();
   const storedJwt = localStorage.getItem("token");
   const [jwt, setJwt] = useState(storedJwt || null);
@@ -113,7 +92,7 @@ const Login = () => {
 
           <Form.Group className="text-center">
             <Form.Text>
-              Don't have an account?
+              Don't have an account? <br />
               <Link to="/register"> Create an account!</Link>
             </Form.Text>
           </Form.Group>

@@ -1,3 +1,4 @@
+import axios from "./axios";
 const apiUrl = "http://localhost:3005";
 
-export default apiUrl;
+export { axios, apiUrl };
