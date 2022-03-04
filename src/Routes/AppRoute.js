@@ -1,15 +1,18 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { /* Homepage, Login, */ Register } from "../pages";
+import { Login, Register, Home } from "../pages";
 
-const AppRoute = () => {
+function AppRoute() {
   return (
-    <Routes>
-      {/* <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Homepage />} /> */}
-      <Route path="/" element={<Register />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </>
   );
-};
+}
 
 export default AppRoute;
