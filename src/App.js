@@ -1,12 +1,12 @@
-import './App.css';
+import React from "react";
+import { Container } from "react-bootstrap";
+import AppRoute from "./Routes/AppRoute";
 
 function App() {
   return (
-    <div className='container'>
-      <div className="d-flex align-middle">
-        <h1>Login</h1>
-      </div>
-    </div>
+    <Container>
+      <AppRoute />
+    </Container>
   );
 }
 
