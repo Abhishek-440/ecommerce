@@ -52,7 +52,7 @@ const Register = () => {
       password: data.password,
     };
     axios
-      .post("https://localhost:3005/api/register", userData)
+      .post("https://localhost:3005/api/auth/register", userData)
       .then((response) => {
         console.log(response);
       })
