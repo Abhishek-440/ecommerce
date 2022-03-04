@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Login, Register, Home } from "./pages";
+import { Login, Register, Home } from "../pages";
 
-function routes() {
+function AppRoute() {
   return (
     <>
       <Routes>
@@ -15,4 +15,4 @@ function routes() {
   );
 }
 
-export default routes;
+export default AppRoute;

@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Routes from "./routes.js";
+import AppRoute from "./Routes/AppRoute";
 
 function App() {
   return (
     <Container>
-      <Routes />
+      <AppRoute />
     </Container>
   );
 }

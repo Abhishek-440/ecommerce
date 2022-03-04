@@ -1,5 +1,5 @@
-import Login from "./LoginPage";
+import Login from "./Login";
 import Home from "./HomePage";
-import Register from "./RegisterPage";
+import Register from "./Register";
 
 export { Login, Home, Register };
