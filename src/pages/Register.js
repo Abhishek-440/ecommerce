@@ -148,7 +148,6 @@ const Register = () => {
               <Form.Label>Date Of Birth</Form.Label>
               <DatePicker
                 showPopperArrow={true}
-                selected={value}
                 onChange={handleChange}
                 value={data.dob}
                 maxDate={new Date()}
