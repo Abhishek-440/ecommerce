@@ -10,7 +10,7 @@ const CardComponent = (incomeData) => {
           <Card.Title>{title}</Card.Title>
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>
-          <Card.Text>{created_at}</Card.Text>
+          <Card.Text>{new Date(created_at).toLocaleString()}</Card.Text>
         </Card.Body>
       </Card>
     </Col>
