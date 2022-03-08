@@ -3,9 +3,12 @@ import { Row, Button } from "react-bootstrap";
 import { axios, apiUrl } from "../utils";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/organisms/Card/Card";
+import { useForm } from "react-hook-form";
+import { ExpenseInformation } from "../components/organisms/ExpenseInput";
 
 function Home() {
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
   const [income, setIncome] = useState([]);
   const [expense, setExpense] = useState([]);
   const [fetchError, setFetchError] = useState(null);
@@ -58,6 +61,7 @@ function Home() {
       <div className="text-center">
         <h1>INCOME</h1>
       </div>
+
       <Row className="text-center">
         {income.incomes?.map((item, id) => (
           // <li>{JSON.stringify(item)}</li>
@@ -72,9 +76,19 @@ function Home() {
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
       </Row>
 
-      <div className="text-center mt-2">
+      <Row className="text-center mt-2">
         <h1>EXPENSE</h1>
-      </div>
+        <Button
+          onClick={
+            <ExpenseInformation
+              register={register}
+              handleSubmit={handleSubmit}
+            />
+          }
+        >
+          Add Expense
+        </Button>
+      </Row>
 
       <Row>
         {expense.expenses?.map((item, id) => (
