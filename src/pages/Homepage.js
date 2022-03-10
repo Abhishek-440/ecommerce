@@ -4,13 +4,18 @@ import { axios, apiUrl } from "../utils";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/organisms/Card/Card";
 import { useForm } from "react-hook-form";
-import { ExpenseInformation } from "../components/organisms/ExpenseInput";
+import { ExpenseInformation } from "components/organisms/ExpenseInput";
+import { handleFetchExpenses } from "Containers/ecommerce/action";
+import { useDispatch, useSelector } from "react-redux";
+import { selectExpenses } from "Containers/ecommerce/reducer";
 
 function Home() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const expense = useSelector(selectExpenses);
   const { register, handleSubmit } = useForm();
   const [income, setIncome] = useState([]);
-  const [expense, setExpense] = useState([]);
+  // const [expense, setExpense] = useState([]);
   const [fetchError, setFetchError] = useState(null);
 
   //GET-INCOME
@@ -26,27 +31,31 @@ function Home() {
 
   useEffect(() => {
     getIncome();
-  }, [income]);
+  }, []);
 
   //GET-EXPENSE
-  const getExpense = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/api/expense`);
-      setExpense(res.data);
-      setFetchError(null);
-    } catch (err) {
-      setFetchError(err.message);
-    }
-  };
+  // const getExpense = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/api/expense`);
+  //     setExpense(res.data);
+  //     setFetchError(null);
+  //   } catch (err) {
+  //     setFetchError(err.message);
+  //   }
+  // };
 
   useEffect(() => {
-    getExpense();
-  }, [expense]);
+    dispatch(handleFetchExpenses());
+  }, []);
 
   function logout() {
     localStorage.removeItem("token");
     navigate("/");
   }
+
+  // function expenseInformation() {
+  //   <ExpenseInformation register={register} />;
+  // }
 
   // const incomeData = {
   //   title: income.title,
@@ -78,27 +87,20 @@ function Home() {
 
       <Row className="text-center mt-2">
         <h1>EXPENSE</h1>
-        <Button
-          onClick={
-            <ExpenseInformation
-              register={register}
-              handleSubmit={handleSubmit}
-            />
-          }
-        >
-          Add Expense
-        </Button>
+        <ExpenseInformation register={register} handleSubmit={handleSubmit} />
+        {/* <Button onClick={expenseInformation}>Add Expense</Button> */}
       </Row>
 
       <Row>
-        {expense.expenses?.map((item, id) => (
+        {expense?.map((item, expenseId) => (
           // <li>{JSON.stringify(item)}</li>
           <CardComponent
-            key={id}
-            title={item.title}
-            amount={item.amount}
-            date={item.date}
-            created_at={item.created_at}
+            key={expenseId}
+            id={expenseId}
+            // title={item.title}
+            // amount={item.amount}
+            // date={item.date}
+            // created_at={item.created_at}
           />
         ))}
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
