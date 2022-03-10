@@ -41,7 +41,8 @@ export function handleFetchExpenses() {
 
 export function saveNewExpense(data) {
   return async function saveNewExpenseThunk(dispatch) {
-    const newExpense = { data };
+    const newExpense = data;
+    console.log(data);
     const response = await createExpense({
       ...newExpense,
       created_at: new Date(),
@@ -49,7 +50,7 @@ export function saveNewExpense(data) {
     });
     dispatch(
       expenseAdded({
-        ...response.expense,
+        ...response.expenses,
       })
     );
   };
@@ -60,7 +61,7 @@ export function updateOldExpense(payload) {
     const response = await updateExpense(payload);
     dispatch(
       expenseUpdated({
-        ...response.expense,
+        ...response.expenses,
       })
     );
   };
@@ -69,6 +70,6 @@ export function updateOldExpense(payload) {
 export function removeExpense(id) {
   return async function (dispatch) {
     const response = await deleteExpense(id);
-    dispatch(expenseDeleted(response.expense));
+    dispatch(expenseDeleted(response.expenses));
   };
 }

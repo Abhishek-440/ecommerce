@@ -2,18 +2,21 @@ import { Card, Col } from "react-bootstrap";
 import React from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Button } from "react-bootstrap";
-import { removeExpense, updateOldExpense } from "Containers/ecommerce/action";
+import { removeExpense } from "Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
 // import { selectExpenseById } from "../../../Containers/ecommerce/reducer";
 
+import { ExpenseInformation } from "../ExpenseInput";
+
 const CardComponent = (data) => {
-  const { id, title, amount, date, created_at } = data;
+  const { id, title, amount, date, created_at, updated_at } = data;
   // const expense = useSelector((state) => selectExpenseById(state, id));
   // const { title, amount, date, created_at } = expense;
   const dispatch = useDispatch();
 
   const onUpdate = () => {
-    dispatch(updateOldExpense(id));
+    // dispatch(updateOldExpense(id));
+    <ExpenseInformation />;
   };
 
   const onDelete = () => {
@@ -21,20 +24,23 @@ const CardComponent = (data) => {
   };
 
   return (
-    <Col className="col-10 col-md-4 mt-2">
+    <Col className="col-10 col-md-4 mt-2 mr-2">
       <Card style={{ width: "18rem" }} className="text-center">
-        <Button variant="Danger" onClick={onDelete()}>
-          <AiFillDelete />
-        </Button>
-        <Button variant="Danger" onClick={onUpdate}>
-          <AiFillEdit />
-        </Button>
+        <div className="d-flex flex-row-reverse">
+          <Button variant="Danger" onClick={onDelete}>
+            <AiFillDelete />
+          </Button>
+          <Button variant="Danger" onClick={onUpdate}>
+            <AiFillEdit />
+          </Button>
+        </div>
         <Card.Body>
-          <Card.Title>{id}</Card.Title>
+          {/* <Card.Title>{id}</Card.Title> */}
           <Card.Title>{title}</Card.Title>
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>
           <Card.Text>{created_at}</Card.Text>
+          <Card.Text>{updated_at}</Card.Text>
         </Card.Body>
       </Card>
     </Col>

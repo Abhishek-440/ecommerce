@@ -13,7 +13,7 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const expense = useSelector(selectExpenses);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, control, setValue } = useForm();
   const [income, setIncome] = useState([]);
   // const [expense, setExpense] = useState([]);
   const [fetchError, setFetchError] = useState(null);
@@ -31,6 +31,7 @@ function Home() {
 
   useEffect(() => {
     getIncome();
+    dispatch(handleFetchExpenses());
   }, []);
 
   //GET-EXPENSE
@@ -44,9 +45,8 @@ function Home() {
   //   }
   // };
 
-  useEffect(() => {
-    dispatch(handleFetchExpenses());
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   function logout() {
     localStorage.removeItem("token");
@@ -54,7 +54,11 @@ function Home() {
   }
 
   // function expenseInformation() {
-  //   <ExpenseInformation register={register} />;
+  //   <ExpenseInformation
+  //     register={register}
+  //     handleSubmit={handleSubmit}
+  //     dispatch={dispatch}
+  //   />;
   // }
 
   // const incomeData = {
@@ -87,7 +91,13 @@ function Home() {
 
       <Row className="text-center mt-2">
         <h1>EXPENSE</h1>
-        <ExpenseInformation register={register} handleSubmit={handleSubmit} />
+        <ExpenseInformation
+          register={register}
+          handleSubmit={handleSubmit}
+          dispatch={dispatch}
+          control={control}
+          setValue={setValue}
+        />
         {/* <Button onClick={expenseInformation}>Add Expense</Button> */}
       </Row>
 
@@ -96,11 +106,12 @@ function Home() {
           // <li>{JSON.stringify(item)}</li>
           <CardComponent
             key={expenseId}
-            id={expenseId}
-            // title={item.title}
-            // amount={item.amount}
-            // date={item.date}
-            // created_at={item.created_at}
+            id={item.id}
+            title={item.title}
+            amount={item.amount}
+            date={item.date}
+            created_at={item.created_at}
+            updated_at={item.updated_at}
           />
         ))}
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}

@@ -20,3 +20,9 @@ export const deleteExpense = (id) => {
   const url = `/api/expense/${id}`;
   return axios.delete(url).then((res) => res.data);
 };
+
+export const fetchExpenseById = (payload) => {
+  const { id, ...others } = payload;
+  const url = `api/expense/${id}`;
+  return axios.get(url, { ...others }).then((res) => res.data);
+};
