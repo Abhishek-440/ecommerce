@@ -3,7 +3,7 @@ import {
   RETRIEVE_INCOME,
   UPDATE_INCOME,
   DELETE_INCOME,
-} from "/actionTypes.js";
+} from "./actionTypes.js";
 import IncomeDataService from "./api";
 
 export const createIncome = (title, amount, date) => async (dispatch) => {

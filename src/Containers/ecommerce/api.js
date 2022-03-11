@@ -1,20 +1,20 @@
-import http from "../utils/index";
+import axios from "../../utils/index";
 //CORS configuration
 class IncomeDataService {
   getAll() {
-    return http.get("/income");
+    return axios.get("/income");
   }
   get(id) {
-    return http.get(`/income/${id}`);
+    return axios.get(`/income/${id}`);
   }
   create(data) {
-    return http.post("/income", data);
+    return axios.post("/income", data);
   }
   update(id, data) {
-    return http.put(`/income/${id}`, data);
+    return axios.put(`/income/${id}`, data);
   }
   delete(id) {
-    return http.delete(`/income/${id}`);
+    return axios.delete(`/income/${id}`);
   }
 }
 export default new IncomeDataService();
