@@ -1,28 +1,34 @@
 import { axios } from "../../utils";
 
-export const fetchExpenses = () => {
+export const fetchExpenses = async () => {
   const url = "/api/expense";
-  return axios.get(url).then((res) => res.data);
+  const res = await axios.get(url);
+  return res.data;
 };
 
-export const createExpense = (payload) => {
+export const createExpense = async (payload) => {
   const url = "/api/expense";
-  return axios.post(url, { ...payload }).then((res) => res.data);
+  const res = await axios.post(url, { ...payload });
+  return res.data;
 };
 
-export const updateExpense = (payload) => {
+export const updateExpense = async (payload) => {
+  // console.log(payload);
   const { id, ...others } = payload;
   const url = `/api/expense/${id}`;
-  return axios.put(url, { ...others }).then((res) => res.data);
+  const res = await axios.put(url, { ...others });
+  return res.data;
 };
 
-export const deleteExpense = (id) => {
+export const deleteExpense = async (id) => {
   const url = `/api/expense/${id}`;
-  return axios.delete(url).then((res) => res.data);
+  const res = await axios.delete(url);
+  return res.data;
 };
 
-export const fetchExpenseById = (payload) => {
+export const fetchExpenseById = async (payload) => {
   const { id, ...others } = payload;
   const url = `api/expense/${id}`;
-  return axios.get(url, { ...others }).then((res) => res.data);
+  const res = await axios.get(url, { ...others });
+  return res.data;
 };

@@ -3,8 +3,8 @@ import { Row, Button } from "react-bootstrap";
 import { axios, apiUrl } from "../utils";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/organisms/Card/Card";
-import { useForm } from "react-hook-form";
-import { ExpenseInformation } from "components/organisms/ExpenseInput";
+// import { useForm } from "react-hook-form";
+// import { ExpenseInformation } from "components/organisms/ExpenseInput";
 import { handleFetchExpenses } from "Containers/ecommerce/action";
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpenses } from "Containers/ecommerce/reducer";
@@ -13,7 +13,7 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const expense = useSelector(selectExpenses);
-  const { register, handleSubmit, control, setValue } = useForm();
+  // const { register, handleSubmit, control, setValue } = useForm();
   const [income, setIncome] = useState([]);
   // const [expense, setExpense] = useState([]);
   const [fetchError, setFetchError] = useState(null);
@@ -53,13 +53,9 @@ function Home() {
     navigate("/");
   }
 
-  // function expenseInformation() {
-  //   <ExpenseInformation
-  //     register={register}
-  //     handleSubmit={handleSubmit}
-  //     dispatch={dispatch}
-  //   />;
-  // }
+  function expenseInformation() {
+    navigate("/expenseinput");
+  }
 
   // const incomeData = {
   //   title: income.title,
@@ -91,14 +87,14 @@ function Home() {
 
       <Row className="text-center mt-2">
         <h1>EXPENSE</h1>
-        <ExpenseInformation
+        {/* <ExpenseInformation
           register={register}
           handleSubmit={handleSubmit}
           dispatch={dispatch}
           control={control}
           setValue={setValue}
-        />
-        {/* <Button onClick={expenseInformation}>Add Expense</Button> */}
+        /> */}
+        <Button onClick={expenseInformation}>Add Expense</Button>
       </Row>
 
       <Row>

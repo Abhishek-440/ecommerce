@@ -4,19 +4,22 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Button } from "react-bootstrap";
 import { removeExpense } from "Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 // import { selectExpenseById } from "../../../Containers/ecommerce/reducer";
 
-import { ExpenseInformation } from "../ExpenseInput";
+// import { ExpenseInformation } from "../ExpenseInput";
 
 const CardComponent = (data) => {
   const { id, title, amount, date, created_at, updated_at } = data;
+  const navigate = useNavigate();
   // const expense = useSelector((state) => selectExpenseById(state, id));
   // const { title, amount, date, created_at } = expense;
   const dispatch = useDispatch();
 
   const onUpdate = () => {
     // dispatch(updateOldExpense(id));
-    <ExpenseInformation />;
+    navigate(`/expenseinput`, { state: data });
+    // <ExpenseInformation />;
   };
 
   const onDelete = () => {

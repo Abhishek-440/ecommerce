@@ -50,13 +50,14 @@ export function saveNewExpense(data) {
     });
     dispatch(
       expenseAdded({
-        ...response.expenses,
+        ...response.expense,
       })
     );
   };
 }
 
 export function updateOldExpense(payload) {
+  // console.log(payload);
   return async function (dispatch) {
     const response = await updateExpense(payload);
     dispatch(
@@ -70,6 +71,6 @@ export function updateOldExpense(payload) {
 export function removeExpense(id) {
   return async function (dispatch) {
     const response = await deleteExpense(id);
-    dispatch(expenseDeleted(response.expenses));
+    dispatch(expenseDeleted(response.expense));
   };
 }
