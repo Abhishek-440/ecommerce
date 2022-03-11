@@ -6,7 +6,7 @@ export default configureStore({
  */
 
 import { createStore } from "redux";
-import rootReducer from "./reducerIndex.js";
+import rootReducer from "./Containers/ecommerce/reducerIndex";
 const initialState = {};
 const store = createStore(rootReducer, initialState);
 

@@ -3,12 +3,15 @@ import { Row, Button } from "react-bootstrap";
 import { axios, apiUrl } from "../utils";
 import { useNavigate } from "react-router-dom";
 import CardComponent from "../components/organisms/Card/Card";
+import { IncomeInformation } from "../components/organisms/IncomeInput";
+import { useForm } from "react-hook-form";
 
 function Home() {
   const navigate = useNavigate();
   const [income, setIncome] = useState([]);
   const [expense, setExpense] = useState([]);
   const [fetchError, setFetchError] = useState(null);
+  const { register, handleSubmit } = useForm();
 
   //GET-INCOME
   const getIncome = async () => {
@@ -23,7 +26,7 @@ function Home() {
 
   useEffect(() => {
     getIncome();
-  }, [income]);
+  }, []);
 
   //GET-EXPENSE
   const getExpense = async () => {
@@ -38,10 +41,11 @@ function Home() {
 
   useEffect(() => {
     getExpense();
-  }, [expense]);
+  }, []);
 
   function logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token"); //specific item from local storage
+    //window.localStorage.clear(); //all items stored in local storage
     navigate("/");
   }
 
@@ -57,6 +61,7 @@ function Home() {
       {/* <Button onClick={() => getIncome()}>INCOME</Button> */}
       <div className="text-center">
         <h1>INCOME</h1>
+        <IncomeInformation register={register} handleSubmit={handleSubmit} />
       </div>
       <Row className="text-center">
         {income.incomes?.map((item, id) => (

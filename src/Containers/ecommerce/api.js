@@ -1,5 +1,5 @@
 import http from "../utils/index";
-
+//CORS configuration
 class IncomeDataService {
   getAll() {
     return http.get("/income");
