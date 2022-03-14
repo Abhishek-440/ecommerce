@@ -1,9 +1,79 @@
 import {
+  CREATE_INCOME,
+  RETRIEVE_INCOME,
+  UPDATE_INCOME,
+  DELETE_INCOME,
+} from "./actionTypes.js";
+
+import {
+  createIncome,
+  deleteIncome,
+  fetchIncome,
+  updateIncome,
+  //fetchIncomeById,
+} from "./api";
+//import IncomeDataService from "./api";
+
+import {
   createExpense,
   deleteExpense,
   fetchExpenses,
   updateExpense,
+  //fetchExpenseById,
 } from "./api";
+
+//Income
+
+export const createNewIncome = (incomeData) => async (dispatch) => {
+  try {
+    const res = await createIncome({ ...incomeData });
+
+    dispatch({
+      type: CREATE_INCOME,
+      payload: res.incomes,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+export const retrieveIncome = () => async (dispatch) => {
+  try {
+    const res = await fetchIncome();
+    //console.log(res);
+    dispatch({
+      type: RETRIEVE_INCOME,
+      payload: res.incomes,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const updateIncomeCardFunc = (data) => async (dispatch) => {
+  try {
+    const res = await updateIncome(data);
+    dispatch({
+      type: UPDATE_INCOME,
+      payload: data,
+    });
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+export const removeIncome = (id) => async (dispatch) => {
+  try {
+    await deleteIncome(id);
+    dispatch({
+      type: DELETE_INCOME,
+      payload: id,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//Expense
 
 export const expenseAdded = (expense) => ({
   type: "expenses/expenseAdded",

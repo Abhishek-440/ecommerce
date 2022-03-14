@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axios, apiUrl } from "../utils";
+import axios from "../utils/axios";
 import { Button, Container, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const Login = () => {
       password: value.password,
     };
 
-    const res = await axios.post(`${apiUrl}/api/auth`, postData);
+    const res = await axios.post(`/api/auth`, postData);
 
     if (res.status === 200) {
       localStorage.setItem("token", res.data?.token);
