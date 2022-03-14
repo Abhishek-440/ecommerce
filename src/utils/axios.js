@@ -1,17 +1,11 @@
 import axios from "axios";
-import { apiUrl } from "./index";
+// import { apiUrl } from "./index";
 
 axios.interceptors.request.use(
   (config) => {
-    const { origin } = new URL(config.url);
-
-    const allowedOrigins = [apiUrl];
-
     const token = localStorage.getItem("token");
 
-    if (allowedOrigins.includes(origin)) {
-      config.headers.authorization = `Bearer ${token}`;
-    }
+    config.headers.authorization = `Bearer ${token}`;
 
     return config;
   },
@@ -20,5 +14,7 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+axios.defaults.baseURL = "http://localhost:3005";
 
 export default axios;

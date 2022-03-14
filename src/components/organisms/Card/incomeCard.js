@@ -2,24 +2,30 @@ import { Card, Col } from "react-bootstrap";
 import React from "react";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Button } from "react-bootstrap";
-import { removeExpense } from "Containers/ecommerce/action";
+import { removeIncome } from "Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
+import { updateIncomeCardFunc } from "Containers/ecommerce/action";
+//import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 // import { selectExpenseById } from "../../../Containers/ecommerce/reducer";
-
+// m
 //import { ExpenseInformation } from "../ExpenseInput";
 
-const CardComponent = (data) => {
+const CardComponentIncome = (data) => {
   const { id, title, amount, date, created_at, updated_at } = data;
   // const expense = useSelector((state) => selectExpenseById(state, id));
   // const { title, amount, date, created_at } = expense;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onUpdate = () => {
-    // dispatch(updateOldExpense(id));
+    dispatch(updateIncomeCardFunc(id));
+    navigate("/incomeInput", { state: data });
   };
 
   const onDelete = () => {
-    dispatch(removeExpense(id));
+    //console.log(id);
+    dispatch(removeIncome(id));
   };
 
   return (
@@ -46,4 +52,4 @@ const CardComponent = (data) => {
   );
 };
 
-export default CardComponent;
+export default CardComponentIncome;

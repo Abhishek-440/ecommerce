@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { Row, Button } from "react-bootstrap";
-import { axios, apiUrl } from "../utils";
 import { useNavigate } from "react-router-dom";
-import CardComponent from "../components/organisms/Card/Card";
-import { IncomeInformation } from "../components/organisms/IncomeInput";
-import { useForm } from "react-hook-form";
+//import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+//import CardComponent from "../components/organisms/Card/Card";
+import { CardComponent, CardComponentIncome } from "components/organisms/Card";
+//import { IncomeInformation } from "../components/organisms/IncomeInput";
+//import { ExpenseInformation } from "components/organisms/ExpenseInput";
+import {
+  handleFetchExpenses,
+  retrieveIncome,
+} from "Containers/ecommerce/action";
+import { selectExpenses } from "Containers/ecommerce/expenseReducer";
+import { selectIncomes } from "Containers/ecommerce/incomeReducer";
 
 function Home() {
   const navigate = useNavigate();
-  const [income, setIncome] = useState([]);
-  const [expense, setExpense] = useState([]);
-  const [fetchError, setFetchError] = useState(null);
-  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const income = useSelector(selectIncomes);
+  const expense = useSelector(selectExpenses);
+  //const { register, handleSubmit } = useForm();
+  //const [income, setIncome] = useState([]);
+  // const [expense, setExpense] = useState([]);
+  const [fetchError] = useState(null);
+  function incomeInformation() {
+    navigate("/incomeInput");
+  }
 
   //GET-INCOME
-  const getIncome = async () => {
+  /* const getIncome = async () => {
     try {
       const res = await axios.get(`${apiUrl}/api/income`);
       setIncome(res.data);
@@ -22,32 +36,40 @@ function Home() {
     } catch (err) {
       setFetchError(err.message);
     }
-  };
+  }; */
 
   useEffect(() => {
-    getIncome();
+    dispatch(retrieveIncome());
+    dispatch(handleFetchExpenses());
   }, []);
 
   //GET-EXPENSE
-  const getExpense = async () => {
-    try {
-      const res = await axios.get(`${apiUrl}/api/expense`);
-      setExpense(res.data);
-      setFetchError(null);
-    } catch (err) {
-      setFetchError(err.message);
-    }
-  };
+  // const getExpense = async () => {
+  //   try {
+  //     const res = await axios.get(`${apiUrl}/api/expense`);
+  //     setExpense(res.data);
+  //     setFetchError(null);
+  //   } catch (err) {
+  //     setFetchError(err.message);
+  //   }
+  // };
 
-  useEffect(() => {
-    getExpense();
-  }, []);
+  // useEffect(() => {
+  // }, []);
 
   function logout() {
     localStorage.removeItem("token"); //specific item from local storage
     //window.localStorage.clear(); //all items stored in local storage
     navigate("/");
   }
+
+  // function expenseInformation() {
+  //   <ExpenseInformation
+  //     register={register}
+  //     handleSubmit={handleSubmit}
+  //     dispatch={dispatch}
+  //   />;
+  // }
 
   // const incomeData = {
   //   title: income.title,
@@ -61,13 +83,16 @@ function Home() {
       {/* <Button onClick={() => getIncome()}>INCOME</Button> */}
       <div className="text-center">
         <h1>INCOME</h1>
-        <IncomeInformation register={register} handleSubmit={handleSubmit} />
+        {/* <IncomeInformation register={register} handleSubmit={handleSubmit} /> */}
+        <Button onClick={incomeInformation}>add income</Button>
       </div>
+
       <Row className="text-center">
-        {income.incomes?.map((item, id) => (
+        {income?.map((item, incomeId) => (
           // <li>{JSON.stringify(item)}</li>
-          <CardComponent
-            key={id}
+          <CardComponentIncome
+            key={incomeId}
+            id={item.id}
             title={item.title}
             amount={item.amount}
             date={item.date}
@@ -77,19 +102,29 @@ function Home() {
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
       </Row>
 
-      <div className="text-center mt-2">
+      <Row className="text-center mt-2">
         <h1>EXPENSE</h1>
-      </div>
+        {/* <ExpenseInformation
+          register={register}
+          handleSubmit={handleSubmit}
+          dispatch={dispatch}
+          control={control}
+          setValue={setValue}
+        /> */}
+        {/* <Button onClick={expenseInformation}>Add Expense</Button> */}
+      </Row>
 
       <Row>
-        {expense.expenses?.map((item, id) => (
+        {expense?.map((item, expenseId) => (
           // <li>{JSON.stringify(item)}</li>
           <CardComponent
-            key={id}
+            key={expenseId}
+            id={item.id}
             title={item.title}
             amount={item.amount}
             date={item.date}
             created_at={item.created_at}
+            updated_at={item.updated_at}
           />
         ))}
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}

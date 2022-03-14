@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import incomes from "./incomeReducer";
-import expenseReducer from "./expenseReducer";
+
+import expenseReducer from "./Containers/ecommerce/IncomeReducer";
+
 const rootReducer = combineReducers({
-  incomes,
   expense: expenseReducer,
 });
 

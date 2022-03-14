@@ -4,14 +4,33 @@ import {
   UPDATE_INCOME,
   DELETE_INCOME,
 } from "./actionTypes.js";
-import IncomeDataService from "./api";
 
-export const createIncome = (title, amount, date) => async (dispatch) => {
+import {
+  createIncome,
+  deleteIncome,
+  fetchIncome,
+  updateIncome,
+  //fetchIncomeById,
+} from "./api";
+//import IncomeDataService from "./api";
+
+import {
+  createExpense,
+  deleteExpense,
+  fetchExpenses,
+  updateExpense,
+  //fetchExpenseById,
+} from "./api";
+
+//Income
+
+export const createNewIncome = (incomeData) => async (dispatch) => {
   try {
-    const res = await IncomeDataService.create({ title, amount, date });
+    const res = await createIncome({ ...incomeData });
+
     dispatch({
       type: CREATE_INCOME,
-      payload: res.data,
+      payload: res.incomes,
     });
     return Promise.resolve(res.data);
   } catch (err) {
@@ -20,18 +39,19 @@ export const createIncome = (title, amount, date) => async (dispatch) => {
 };
 export const retrieveIncome = () => async (dispatch) => {
   try {
-    const res = await IncomeDataService.getAll();
+    const res = await fetchIncome();
+    //console.log(res);
     dispatch({
       type: RETRIEVE_INCOME,
-      payload: res.data,
+      payload: res.incomes,
     });
   } catch (err) {
     console.log(err);
   }
 };
-export const updateIncome = (id, data) => async (dispatch) => {
+export const updateIncomeCardFunc = (data) => async (dispatch) => {
   try {
-    const res = await IncomeDataService.update(id, data);
+    const res = await updateIncome(data);
     dispatch({
       type: UPDATE_INCOME,
       payload: data,
@@ -41,14 +61,85 @@ export const updateIncome = (id, data) => async (dispatch) => {
     return Promise.reject(err);
   }
 };
-export const deleteIncome = (id) => async (dispatch) => {
+export const removeIncome = (id) => async (dispatch) => {
   try {
-    await IncomeDataService.delete(id);
+    await deleteIncome(id);
     dispatch({
       type: DELETE_INCOME,
-      payload: { id },
+      payload: id,
     });
   } catch (err) {
     console.log(err);
   }
 };
+
+//Expense
+
+export const expenseAdded = (expense) => ({
+  type: "expenses/expenseAdded",
+  payload: expense,
+});
+
+export const expensesLoaded = (expense) => ({
+  type: "expenses/expensesLoaded",
+  payload: expense,
+});
+
+export const expenseUpdated = (payload) => ({
+  type: "expenses/expensesUpdated",
+  payload,
+});
+
+export const expenseDeleted = (expenseId) => ({
+  type: "expenses/expensesDeleted",
+  payload: expenseId,
+});
+
+export function handleFetchExpenses() {
+  return async function handleFetchData(dispatch) {
+    const response = await fetchExpenses();
+    // console.log(response);
+    dispatch(
+      expensesLoaded(
+        response?.expenses.map((item) => ({
+          ...item,
+        }))
+      )
+    );
+  };
+}
+
+export function saveNewExpense(data) {
+  return async function saveNewExpenseThunk(dispatch) {
+    const newExpense = data;
+    console.log(data);
+    const response = await createExpense({
+      ...newExpense,
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
+    dispatch(
+      expenseAdded({
+        ...response.expense,
+      })
+    );
+  };
+}
+
+export function updateOldExpense(payload) {
+  return async function (dispatch) {
+    const response = await updateExpense(payload);
+    dispatch(
+      expenseUpdated({
+        ...response.expenses,
+      })
+    );
+  };
+}
+
+export function removeExpense(id) {
+  return async function (dispatch) {
+    const response = await deleteExpense(id);
+    dispatch(expenseDeleted(response.expense));
+  };
+}

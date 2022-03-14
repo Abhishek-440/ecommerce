@@ -28,10 +28,11 @@ function incomeReducer(incomes = initialState, action) {
       });
 
     case DELETE_INCOME:
-      return incomes.filter(({ id }) => id !== payload.id);
+      return incomes.filter(({ id }) => Number(id) !== Number(payload));
 
     default:
       return incomes;
   }
 }
+export const selectIncomes = (incomes) => incomes.incomes;
 export default incomeReducer;

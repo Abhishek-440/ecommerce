@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Login, Register, Home } from "../pages";
+import { IncomeInformation } from "components/organisms/IncomeInput";
 
 function AppRoute() {
   return (
@@ -10,6 +11,7 @@ function AppRoute() {
         <Route path="/Home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/incomeInput" element={<IncomeInformation />} />
       </Routes>
     </>
   );
