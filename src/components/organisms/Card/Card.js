@@ -17,7 +17,7 @@ const CardComponent = (data) => {
 
   const onUpdate = () => {
     // dispatch(updateOldExpense(id));
-    navigate(`/expenseinput`, { state: data });
+    navigate(`/expense/input`, { state: data });
     // <ExpenseInformation />;
   };
 

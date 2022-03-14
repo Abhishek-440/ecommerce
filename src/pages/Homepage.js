@@ -46,7 +46,7 @@ function Home() {
 
   //For adding more expenses
   function expenseInformation() {
-    navigate("/expenseinput");
+    navigate("/expense/input");
   }
 
   return (

@@ -20,7 +20,7 @@ const CardComponentIncome = (data) => {
 
   const onUpdate = () => {
     dispatch(updateIncomeCardFunc(id));
-    navigate("/incomeInput", { state: data });
+    navigate("/income/input", { state: data });
   };
 
   const onDelete = () => {

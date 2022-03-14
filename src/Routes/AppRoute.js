@@ -12,9 +12,9 @@ function AppRoute() {
         <Route path="/Home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/expenseinput" element={<ExpenseInformation />} />
-        <Route path="/expensemonth" element={<ExpenseMonth />} />
-        <Route path="/incomeInput" element={<IncomeInformation />} />
+        <Route path="/expense/input" element={<ExpenseInformation />} />
+        <Route path="/expense/month" element={<ExpenseMonth />} />
+        <Route path="/income/input" element={<IncomeInformation />} />
       </Routes>
     </>
   );
