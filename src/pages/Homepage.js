@@ -28,7 +28,7 @@ function Home() {
   const expense = useSelector(selectExpenses);
 
   function incomeInformation() {
-    navigate("/incomeInput");
+    navigate("/income/input");
   }
 
   //For loading income and expenses automatically
@@ -66,7 +66,7 @@ function Home() {
           <Nav.Link href="/home">Home</Nav.Link>
           <NavDropdown title="Expense" id="navbardropdown">
             <NavDropdown.Item>
-              <Link to="/expensemonth">show by month</Link>
+              <Link to="/expense/month">show by month</Link>
             </NavDropdown.Item>
           </NavDropdown>
           <Navbar.Collapse className="justify-content-end">
