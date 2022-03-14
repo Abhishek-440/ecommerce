@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectExpenses } from "Containers/ecommerce/reducer";
+import { selectExpenses } from "Containers/ecommerce/expenseReducer";
 import ReactLogo from "../logo.svg";
 import jwtDecode from "jwt-decode";
 import { CardComponent, CardComponentIncome } from "components/organisms/Card";

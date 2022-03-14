@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectExpenses } from "Containers/ecommerce/reducer";
+import { selectExpenses } from "Containers/ecommerce/expenseReducer";
 import { Row } from "react-bootstrap";
 import { CardComponent } from "components/organisms/Card";
 
