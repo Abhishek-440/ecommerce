@@ -1,11 +1,8 @@
-// import { fetchExpenseById } from "Containers/ecommerce/api";
 import React, { useEffect } from "react";
-// import { useFieldArray } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router";
-// import { useLocation } from "react-router";
 import {
   saveNewExpense,
   updateOldExpense,
@@ -13,29 +10,19 @@ import {
 
 const ExpenseInformation = () => {
   const navigate = useNavigate();
-  // const { register, handleSubmit, dispatch, setValue } = prop;
   const { register, handleSubmit, setValue } = useForm();
   const location = useLocation();
-  // const { id, title, amount, date, created_at, updated_at } = location.state;
-  //location.state is object!
   const dispatch = useDispatch();
-  // const params = useParams();
   useEffect(async () => {
     if (location.state) {
-      try {
-        const { id, title, amount, date, created_at, updated_at } =
-          location.state;
-        // const response = await fetchExpenseById(params.id);
-        setValue("id", id);
-        setValue("title", title);
-        setValue("amount", amount);
-        setValue("date", new Date(date));
-        setValue("updated_at", new Date(updated_at));
-        setValue("created_at", created_at);
-        // console.log(response);
-      } catch (e) {
-        // console.log(e.message);
-      }
+      const { id, title, amount, date, created_at, updated_at } =
+        location.state;
+      setValue("id", id);
+      setValue("title", title);
+      setValue("amount", amount);
+      setValue("date", new Date(date));
+      setValue("updated_at", new Date(updated_at));
+      setValue("created_at", created_at);
     }
   });
 

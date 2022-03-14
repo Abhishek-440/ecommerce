@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-// import { useFieldArray } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { createNewIncome } from "../../../Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-//import { Navigate } from "react-router";
 import { useNavigate, useLocation } from "react-router";
 import { updateIncomeCardFunc } from "../../../Containers/ecommerce/action";
 
@@ -16,20 +14,14 @@ const IncomeInformation = () => {
   const location = useLocation();
   useEffect(async () => {
     if (location.state) {
-      try {
-        const { id, title, amount, date, created_at, updated_at } =
-          location.state;
-        // const response = await fetchExpenseById(params.id);
-        setValue("id", id);
-        setValue("title", title);
-        setValue("amount", amount);
-        setValue("date", new Date(date));
-        setValue("updated_at", new Date(updated_at));
-        setValue("created_at", created_at);
-        // console.log(response);
-      } catch (e) {
-        // console.log(e.message);
-      }
+      const { id, title, amount, date, created_at, updated_at } =
+        location.state;
+      setValue("id", id);
+      setValue("title", title);
+      setValue("amount", amount);
+      setValue("date", new Date(date));
+      setValue("updated_at", new Date(updated_at));
+      setValue("created_at", created_at);
     }
   });
   const saveSubmit = (data) => {

@@ -11,14 +11,10 @@ import { capitalize } from "utils";
 const CardComponent = (data) => {
   const { id, title, amount, date, created_at, updated_at } = data;
   const navigate = useNavigate();
-  // const expense = useSelector((state) => selectExpenseById(state, id));
-  // const { title, amount, date, created_at } = expense;
   const dispatch = useDispatch();
 
   const onUpdate = () => {
-    // dispatch(updateOldExpense(id));
     navigate(`/expense/input`, { state: data });
-    // <ExpenseInformation />;
   };
 
   const onDelete = () => {
@@ -37,7 +33,6 @@ const CardComponent = (data) => {
           </Button>
         </div>
         <Card.Body>
-          {/* <Card.Title>{id}</Card.Title> */}
           <Card.Title>{capitalize(title)}</Card.Title>
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>

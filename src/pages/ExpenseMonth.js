@@ -10,7 +10,6 @@ const ExpenseMonth = () => {
     <div>
       <Row>
         {expense?.map((item, expenseId) => (
-          // <li>{JSON.stringify(item)}</li>
           <CardComponent
             key={expenseId}
             id={item.id}

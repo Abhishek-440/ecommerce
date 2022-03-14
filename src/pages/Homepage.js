@@ -81,13 +81,11 @@ function Home() {
       </Navbar>
       <div className="text-center">
         <h1>INCOME</h1>
-        {/* <IncomeInformation register={register} handleSubmit={handleSubmit} /> */}
         <Button onClick={incomeInformation}>add income</Button>
       </div>
 
       <Row className="text-center">
         {income?.map((item, incomeId) => (
-          // <li>{JSON.stringify(item)}</li>
           <CardComponentIncome
             key={incomeId}
             id={item.id}
@@ -106,7 +104,6 @@ function Home() {
 
       <Row>
         {expense?.map((item, expenseId) => (
-          // <li>{JSON.stringify(item)}</li>
           <CardComponent
             key={expenseId}
             id={item.id}
