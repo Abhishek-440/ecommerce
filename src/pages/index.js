@@ -1,6 +1,6 @@
 import Home from "./Homepage";
 import Register from "./Register";
 import Login from "./Login";
-import AddExpense from "./addExpense";
+import ExpenseMonth from "./ExpenseMonth";
 
-export { Register, Home, Login, AddExpense };
+export { Register, Home, Login, ExpenseMonth };

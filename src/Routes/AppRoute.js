@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Login, Register, Home } from "../pages";
+import { Login, Register, Home, ExpenseMonth } from "../pages";
 import { ExpenseInformation } from "../components/organisms/ExpenseInput";
 
 function AppRoute() {
@@ -12,6 +12,7 @@ function AppRoute() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/expenseinput" element={<ExpenseInformation />} />
+        <Route path="/expensemonth" element={<ExpenseMonth />} />
       </Routes>
     </>
   );

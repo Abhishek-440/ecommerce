@@ -5,6 +5,8 @@ import { Button } from "react-bootstrap";
 import { removeExpense } from "Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import Moment from "react-moment";
+import { capitalize } from "utils";
 // import { selectExpenseById } from "../../../Containers/ecommerce/reducer";
 
 // import { ExpenseInformation } from "../ExpenseInput";
@@ -39,11 +41,21 @@ const CardComponent = (data) => {
         </div>
         <Card.Body>
           {/* <Card.Title>{id}</Card.Title> */}
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>{capitalize(title)}</Card.Title>
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>
-          <Card.Text>{created_at}</Card.Text>
-          <Card.Text>{updated_at}</Card.Text>
+          <Card.Text className="light">
+            created:
+            <Moment format="YYYY/MM/DD">{created_at}</Moment>
+          </Card.Text>
+          {updated_at ? (
+            <Card.Text>
+              updated:
+              <Moment fromNow>{updated_at}</Moment>
+            </Card.Text>
+          ) : (
+            <Card.Text> </Card.Text>
+          )}
         </Card.Body>
       </Card>
     </Col>

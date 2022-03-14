@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Row, Button } from "react-bootstrap";
+import {
+  Row,
+  Button,
+  Navbar,
+  Container,
+  Nav,
+  NavDropdown,
+} from "react-bootstrap";
 import { axios, apiUrl } from "../utils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardComponent from "../components/organisms/Card/Card";
 // import { useForm } from "react-hook-form";
 // import { ExpenseInformation } from "components/organisms/ExpenseInput";
 import { handleFetchExpenses } from "Containers/ecommerce/action";
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpenses } from "Containers/ecommerce/reducer";
+import ReactLogo from "../logo.svg";
+import jwtDecode from "jwt-decode";
 
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const storedJwt = localStorage.getItem("token");
+  const decoded = jwtDecode(storedJwt);
   const expense = useSelector(selectExpenses);
   // const { register, handleSubmit, control, setValue } = useForm();
   const [income, setIncome] = useState([]);
@@ -29,44 +40,53 @@ function Home() {
     }
   };
 
+  //For loading income and expenses automatically
   useEffect(() => {
     getIncome();
     dispatch(handleFetchExpenses());
   }, []);
 
-  //GET-EXPENSE
-  // const getExpense = async () => {
-  //   try {
-  //     const res = await axios.get(`${apiUrl}/api/expense`);
-  //     setExpense(res.data);
-  //     setFetchError(null);
-  //   } catch (err) {
-  //     setFetchError(err.message);
-  //   }
-  // };
-
-  // useEffect(() => {
-  // }, []);
-
+  //For logging out
   function logout() {
     localStorage.removeItem("token");
     navigate("/");
   }
 
+  //For adding more expenses
   function expenseInformation() {
     navigate("/expenseinput");
   }
 
-  // const incomeData = {
-  //   title: income.title,
-  //   amount: income.amount,
-  //   date: income.date,
-  //   created_at: income.created_at,
-  // };
-
   return (
     <>
-      {/* <Button onClick={() => getIncome()}>INCOME</Button> */}
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/home">
+            <img
+              alt=""
+              src={ReactLogo}
+              width="100"
+              height="30"
+              className="d-inline-block align-top"
+            />{" "}
+            Income/Expense Tracker
+          </Navbar.Brand>
+          <Nav.Link href="/home">Home</Nav.Link>
+          <NavDropdown title="Expense" id="navbardropdown">
+            <NavDropdown.Item>
+              <Link to="/expensemonth">show by month</Link>
+            </NavDropdown.Item>
+          </NavDropdown>
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Signed in as:{" "}
+              <a href="">
+                {decoded.email}({decoded.name})
+              </a>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <div className="text-center">
         <h1>INCOME</h1>
       </div>
@@ -85,8 +105,8 @@ function Home() {
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
       </Row>
 
+      <h1>EXPENSE</h1>
       <Row className="text-center mt-2">
-        <h1>EXPENSE</h1>
         {/* <ExpenseInformation
           register={register}
           handleSubmit={handleSubmit}
@@ -110,7 +130,6 @@ function Home() {
             updated_at={item.updated_at}
           />
         ))}
-        {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
       </Row>
 
       <div className="text-center mt-2">
