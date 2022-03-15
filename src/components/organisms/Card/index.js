@@ -1,4 +1,4 @@
-import CardComponent from "./Card";
-import CardComponentIncome from "./incomeCard";
+import CardComponent from "./ExpenseCard";
+import CardComponentIncome from "./IncomeCard";
 
 export { CardComponent, CardComponentIncome };
