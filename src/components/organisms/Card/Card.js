@@ -4,18 +4,17 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { Button } from "react-bootstrap";
 import { removeExpense } from "Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
-// import { selectExpenseById } from "../../../Containers/ecommerce/reducer";
-
-//import { ExpenseInformation } from "../ExpenseInput";
+import { useNavigate } from "react-router";
+import Moment from "react-moment";
+import { capitalize } from "utils";
 
 const CardComponent = (data) => {
   const { id, title, amount, date, created_at, updated_at } = data;
-  // const expense = useSelector((state) => selectExpenseById(state, id));
-  // const { title, amount, date, created_at } = expense;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onUpdate = () => {
-    // dispatch(updateOldExpense(id));
+    navigate(`/expense/input`, { state: data });
   };
 
   const onDelete = () => {
@@ -34,12 +33,21 @@ const CardComponent = (data) => {
           </Button>
         </div>
         <Card.Body>
-          {/* <Card.Title>{id}</Card.Title> */}
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>{capitalize(title)}</Card.Title>
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>
-          <Card.Text>{new Date(created_at).toLocaleString()}</Card.Text>
-          <Card.Text>{new Date(updated_at).toLocaleString()}</Card.Text>
+          <Card.Text className="light">
+            created:
+            <Moment format="YYYY/MM/DD">{created_at}</Moment>
+          </Card.Text>
+          {updated_at ? (
+            <Card.Text>
+              updated:
+              <Moment fromNow>{updated_at}</Moment>
+            </Card.Text>
+          ) : (
+            <Card.Text> </Card.Text>
+          )}
         </Card.Body>
       </Card>
     </Col>

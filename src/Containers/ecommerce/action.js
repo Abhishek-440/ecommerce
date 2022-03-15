@@ -5,21 +5,13 @@ import {
   DELETE_INCOME,
 } from "./actionTypes.js";
 
-import {
-  createIncome,
-  deleteIncome,
-  fetchIncome,
-  updateIncome,
-  //fetchIncomeById,
-} from "./api";
-//import IncomeDataService from "./api";
+import { createIncome, deleteIncome, fetchIncome, updateIncome } from "./api";
 
 import {
   createExpense,
   deleteExpense,
   fetchExpenses,
   updateExpense,
-  //fetchExpenseById,
 } from "./api";
 
 //Income
@@ -40,7 +32,6 @@ export const createNewIncome = (incomeData) => async (dispatch) => {
 export const retrieveIncome = () => async (dispatch) => {
   try {
     const res = await fetchIncome();
-    //console.log(res);
     dispatch({
       type: RETRIEVE_INCOME,
       payload: res.incomes,
@@ -98,7 +89,6 @@ export const expenseDeleted = (expenseId) => ({
 export function handleFetchExpenses() {
   return async function handleFetchData(dispatch) {
     const response = await fetchExpenses();
-    // console.log(response);
     dispatch(
       expensesLoaded(
         response?.expenses.map((item) => ({
