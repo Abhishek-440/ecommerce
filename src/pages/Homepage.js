@@ -7,7 +7,7 @@ import {
   Nav,
   NavDropdown,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpenses } from "Containers/ecommerce/expenseReducer";
 import ReactLogo from "../logo.svg";
@@ -18,6 +18,7 @@ import {
   retrieveIncome,
 } from "Containers/ecommerce/action";
 import { selectIncomes } from "Containers/ecommerce/incomeReducer";
+import { Link } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -65,9 +66,7 @@ function Home() {
           </Navbar.Brand>
           <Nav.Link href="/home">Home</Nav.Link>
           <NavDropdown title="Expense" id="navbardropdown">
-            <NavDropdown.Item>
-              <Link to="/expense/month">show by month</Link>
-            </NavDropdown.Item>
+            <Link to="/expense/month">show by month</Link>
           </NavDropdown>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
