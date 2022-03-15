@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import incomes from "./incomeReducer";
-import expenseReducer from "./expenseReducer";
+import incomes from "./IncomeReducer";
+import expenseReducer from "./ExpenseReducer";
 const rootReducer = combineReducers({
   incomes,
   expense: expenseReducer,

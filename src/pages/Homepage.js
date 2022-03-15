@@ -6,10 +6,11 @@ import {
   Container,
   Nav,
   NavDropdown,
+  NavLink,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectExpenses } from "Containers/ecommerce/expenseReducer";
+import { selectExpenses } from "Containers/ecommerce/ExpenseReducer";
 import ReactLogo from "../logo.svg";
 import jwtDecode from "jwt-decode";
 import { CardComponent, CardComponentIncome } from "components/organisms/Card";
@@ -66,7 +67,12 @@ function Home() {
           </Navbar.Brand>
           <Nav.Link href="/home">Home</Nav.Link>
           <NavDropdown title="Expense" id="navbardropdown">
-            <Link to="/expense/month">show by month</Link>
+            <NavLink>
+              <Link to="/expense/month">show by month</Link>
+            </NavLink>
+            <NavLink>
+              <Link to="/expense/day">show by day</Link>
+            </NavLink>
           </NavDropdown>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
@@ -75,6 +81,9 @@ function Home() {
                 {decoded.email}({decoded.name})
               </a>
             </Navbar.Text>
+            <div className="text-center mt-2">
+              <Button onClick={logout}>LOG OUT</Button>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -96,10 +105,10 @@ function Home() {
         ))}
       </Row>
 
-      <h1>EXPENSE</h1>
-      <Row className="text-center mt-2">
+      <div className="text-center">
+        <h1>EXPENSE</h1>
         <Button onClick={expenseInformation}>Add Expense</Button>
-      </Row>
+      </div>
 
       <Row>
         {expense?.map((item, expenseId) => (
@@ -114,10 +123,6 @@ function Home() {
           />
         ))}
       </Row>
-
-      <div className="text-center mt-2">
-        <Button onClick={logout}>LOG OUT</Button>
-      </div>
     </>
   );
 }
