@@ -3,13 +3,14 @@ import {
   Row,
   Button,
   Navbar,
+  NavLink,
   Container,
   Nav,
   NavDropdown,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectExpenses } from "Containers/ecommerce/expenseReducer";
+import { selectExpenses } from "Containers/ecommerce/ExpenseReducer";
 import ReactLogo from "../logo.svg";
 import jwtDecode from "jwt-decode";
 import { CardComponent, CardComponentIncome } from "components/organisms/Card";
@@ -17,7 +18,7 @@ import {
   handleFetchExpenses,
   retrieveIncome,
 } from "Containers/ecommerce/action";
-import { selectIncomes } from "Containers/ecommerce/incomeReducer";
+import { selectIncomes } from "Containers/ecommerce/IncomeReducer";
 
 function Home() {
   const navigate = useNavigate();
@@ -63,12 +64,24 @@ function Home() {
             />{" "}
             Income/Expense Tracker
           </Navbar.Brand>
+
           <Nav.Link href="/home">Home</Nav.Link>
+
           <NavDropdown title="Expense" id="navbardropdown">
-            <NavDropdown.Item>
+            <NavLink>
               <Link to="/expense/month">show by month</Link>
-            </NavDropdown.Item>
+            </NavLink>
           </NavDropdown>
+
+          <NavDropdown title="Income" id="navbardropdown2">
+            <NavLink>
+              <Link to="/income/month">Sum by month</Link>
+            </NavLink>
+            <NavLink>
+              <Link to="/income/day">Sum by day</Link>
+            </NavLink>
+          </NavDropdown>
+
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               Signed in as:{" "}
@@ -79,6 +92,7 @@ function Home() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
       <div className="text-center">
         <h1>INCOME</h1>
         <Button onClick={incomeInformation}>add income</Button>
