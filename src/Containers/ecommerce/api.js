@@ -1,5 +1,7 @@
 import axios from "../../utils/axios";
 
+//Expenses
+
 export const fetchExpenses = async () => {
   const url = "/api/expense";
   const res = await axios.get(url);

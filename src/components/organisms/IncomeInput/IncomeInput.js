@@ -32,7 +32,7 @@ const IncomeInformation = () => {
 
   const saveUpdate = async (data) => {
     dispatch(updateIncomeCardFunc(data));
-    navigate("/Home");
+    navigate("/home");
   };
 
   function handleChange(e) {

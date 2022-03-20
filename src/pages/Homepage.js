@@ -18,8 +18,9 @@ import {
   handleFetchExpenses,
   retrieveIncome,
 } from "Containers/ecommerce/action";
-import { selectIncomes } from "Containers/ecommerce/incomeReducer";
+import { selectIncomes } from "Containers/ecommerce/IncomeReducer";
 import { Link } from "react-router-dom";
+import { LogOutt } from "Containers/ecommerce/action";
 
 function Home() {
   const navigate = useNavigate();
@@ -28,7 +29,6 @@ function Home() {
   const decoded = jwtDecode(storedJwt);
   const income = useSelector(selectIncomes);
   const expense = useSelector(selectExpenses);
-
   function incomeInformation() {
     navigate("/income/input");
   }
@@ -37,14 +37,25 @@ function Home() {
   useEffect(() => {
     dispatch(retrieveIncome());
     dispatch(handleFetchExpenses());
+    // const decoded = jwtDecode(storedJwt);
+    // let expireDate = decoded.exp;
+    // // let login = useSelector((state) => state.login?.isAuthenticate);
+    // let currentTimeInMillisecs = new Date().getTime();
+    // var currentTimeInSecs = currentTimeInMillisecs / 1000;
+    // if (expireDate > currentTimeInSecs) {
+    //   navigate("/Home");
+    // } else {
+    //   localStorage.removeItem("token");
+    //   navigate("/");
+    // }
   }, []);
 
   //For logging out
-  function logout() {
-    localStorage.removeItem("token"); //specific item from local storage
+  const logout = async () => {
+    await dispatch(LogOutt()); //specific item from local storage
     //window.localStorage.clear(); //all items stored in local storage
     navigate("/");
-  }
+  };
 
   //For adding more expenses
   function expenseInformation() {

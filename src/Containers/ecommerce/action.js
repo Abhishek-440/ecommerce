@@ -14,6 +14,44 @@ import {
   updateExpense,
 } from "./api";
 
+import { axios } from "../../utils";
+
+//Login
+
+export const loadlogin = () => ({
+  type: "login",
+  payload: true,
+});
+
+export const loadlogout = () => ({
+  type: "logOut",
+  payload: false,
+});
+
+export const Loginn = (loginData) => {
+  return async function (dispatch) {
+    const postData = {
+      email: loginData.email,
+      password: loginData.password,
+    };
+
+    const res = await axios.post(`/api/auth`, postData);
+
+    if (res.status === 200) {
+      localStorage.setItem("token", res.data?.token);
+
+      dispatch(loadlogin());
+    }
+  };
+};
+
+export const LogOutt = () => {
+  return async function (dispatch) {
+    localStorage.removeItem("token");
+    dispatch(loadlogout());
+  };
+};
+
 //Income
 
 export const createNewIncome = (incomeData) => async (dispatch) => {

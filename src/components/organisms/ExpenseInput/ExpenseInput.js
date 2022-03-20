@@ -28,12 +28,12 @@ const ExpenseInformation = () => {
 
   const saveSubmit = async (data) => {
     dispatch(saveNewExpense(data));
-    navigate("/Home");
+    navigate("/home");
   };
 
   const saveUpdate = async (data) => {
     dispatch(updateOldExpense(data));
-    navigate("/Home");
+    navigate("/home");
   };
 
   function handleChange(e) {
