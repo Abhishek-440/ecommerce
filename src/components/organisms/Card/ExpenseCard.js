@@ -45,7 +45,7 @@ const CardComponent = (data) => {
               updated: <Moment fromNow>{updated_at}</Moment>
             </Card.Text>
           ) : (
-            <Card.Text> </Card.Text>
+            <Card.Text>not yet updated</Card.Text>
           )}
         </Card.Body>
       </Card>

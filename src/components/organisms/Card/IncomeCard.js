@@ -6,6 +6,7 @@ import { removeIncome } from "Containers/ecommerce/action";
 import { useDispatch } from "react-redux";
 import { updateIncomeCardFunc } from "Containers/ecommerce/action";
 import { useNavigate } from "react-router";
+import Moment from "react-moment";
 
 const CardComponentIncome = (data) => {
   const { id, title, amount, date, created_at, updated_at } = data;
@@ -37,7 +38,13 @@ const CardComponentIncome = (data) => {
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>
           <Card.Text>{new Date(created_at).toLocaleString()}</Card.Text>
-          <Card.Text>{new Date(updated_at).toLocaleString()}</Card.Text>
+          {updated_at ? (
+            <Card.Text>
+              updated: <Moment fromNow>{updated_at}</Moment>
+            </Card.Text>
+          ) : (
+            <Card.Text>not yet updated</Card.Text>
+          )}
         </Card.Body>
       </Card>
     </Col>

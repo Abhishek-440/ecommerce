@@ -21,7 +21,6 @@ const ProtectedRoutes = ({ login, redirectpath = "/" }) => {
 function AppRoute() {
   const dispatch = useDispatch();
   const login = useSelector((state) => state.login.isAuthenticated);
-  console.log("🚀 ~ file: AppRoute.js ~ line 20 ~ AppRoute ~ login", login);
   const storedJwt = localStorage.getItem("token");
 
   if (storedJwt) {
