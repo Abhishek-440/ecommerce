@@ -33,7 +33,7 @@ const Login = () => {
 
       setJwt(res.data?.token);
 
-      navigate("/home", { replace: true });
+      navigate("/home"); // navigate("/home", { replace: true })
     }
   };
 
