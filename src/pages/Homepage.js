@@ -19,6 +19,7 @@ import {
   retrieveIncome,
 } from "Containers/ecommerce/action";
 import { selectIncomes } from "Containers/ecommerce/IncomeReducer";
+import { useAuth } from "Routes/auth";
 
 function Home() {
   const navigate = useNavigate();
@@ -38,11 +39,13 @@ function Home() {
     dispatch(handleFetchExpenses());
   }, []);
 
+  const auth = useAuth();
   //For logging out
   function logout() {
     localStorage.removeItem("token"); //specific item from local storage
     //window.localStorage.clear(); //all items stored in local storage
     navigate("/");
+    auth.logout();
   }
 
   //For adding more expenses

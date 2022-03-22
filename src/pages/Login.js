@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "../utils/axios";
 import { Button, Container, Card, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "Routes/auth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState("");
+  const auth = useAuth();
 
   //POST
   const getJwt = async (value) => {
@@ -28,7 +33,7 @@ const Login = () => {
 
       setJwt(res.data?.token);
 
-      navigate("/home");
+      navigate("/home", { replace: true });
     }
   };
 
@@ -43,6 +48,7 @@ const Login = () => {
   function handleSubmit(e) {
     e.preventDefault();
     getJwt(loginData);
+    auth.login(user);
   }
 
   return (
