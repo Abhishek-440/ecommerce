@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from "react";
+import { handleFetchExpenses } from "Containers/ecommerce/action";
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpenses } from "Containers/ecommerce/ExpenseReducer";
 import moment from "moment";
-import { handleFetchExpenses } from "Containers/ecommerce/action";
 
-const ExpenseMonth = () => {
+const ExpenseDay = () => {
   const expense = useSelector(selectExpenses);
+  const [dayy, setDayy] = useState([]);
   const dispatch = useDispatch();
-  const [datee, setDatee] = useState([]);
-
   useEffect(() => {
     dispatch(handleFetchExpenses());
-    const months = [];
+    const days = [];
+
     expense?.forEach((item) => {
-      // const y = moment(item.date).format("YYYY");
-      const m = moment(item.date).format("YYYY/MM");
-      // const d = moment(item.date).format("DD");
-      // console.log(y, m, d);
-      if (!months.includes(m)) {
-        months.push(m);
+      const d = moment(item.date).format("YYYY/MM/DD");
+      if (!days.includes(d)) {
+        days.push(d);
       }
     });
-    setDatee(months);
+    setDayy(days);
   }, []);
   return (
     <div>
-      {datee.map((item) => {
+      {dayy.map((item) => {
         let sum = 0;
-        const thisMonthData = expense?.filter(
-          (x) => moment(x.date).format("YYYY/MM") === item
+        const thisDayData = expense?.filter(
+          (x) => moment(x.date).format("YYYY/MM/DD") === item
         );
-        thisMonthData.map((x) => {
+        thisDayData.map((x) => {
           return (sum += x.amount);
         });
         return (
@@ -44,4 +41,4 @@ const ExpenseMonth = () => {
   );
 };
 
-export default ExpenseMonth;
+export default ExpenseDay;

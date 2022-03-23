@@ -8,7 +8,7 @@ import {
   Nav,
   NavDropdown,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectExpenses } from "Containers/ecommerce/ExpenseReducer";
 import ReactLogo from "../logo.svg";
@@ -19,7 +19,8 @@ import {
   retrieveIncome,
 } from "Containers/ecommerce/action";
 import { selectIncomes } from "Containers/ecommerce/IncomeReducer";
-import { useAuth } from "Routes/auth";
+import { Link } from "react-router-dom";
+import { LogOutt } from "Containers/ecommerce/action";
 
 function Home() {
   const navigate = useNavigate();
@@ -28,7 +29,6 @@ function Home() {
   const decoded = jwtDecode(storedJwt);
   const income = useSelector(selectIncomes);
   const expense = useSelector(selectExpenses);
-
   function incomeInformation() {
     navigate("/income/input");
   }
@@ -37,16 +37,26 @@ function Home() {
   useEffect(() => {
     dispatch(retrieveIncome());
     dispatch(handleFetchExpenses());
+    // const decoded = jwtDecode(storedJwt);
+    // let expireDate = decoded.exp;
+    // // let login = useSelector((state) => state.login?.isAuthenticate);
+    // let currentTimeInMillisecs = new Date().getTime();
+    // var currentTimeInSecs = currentTimeInMillisecs / 1000;
+    // if (expireDate > currentTimeInSecs) {
+    //   navigate("/Home");
+    // } else {
+    //   localStorage.removeItem("token");
+    //   navigate("/");
+    // }
   }, []);
 
-  const auth = useAuth();
+  //  const auth = useAuth();
   //For logging out
-  function logout() {
-    localStorage.removeItem("token"); //specific item from local storage
+  const logout = async () => {
+    await dispatch(LogOutt()); //specific item from local storage
     //window.localStorage.clear(); //all items stored in local storage
     navigate("/");
-    auth.logout();
-  }
+  };
 
   //For adding more expenses
   function expenseInformation() {
@@ -74,6 +84,9 @@ function Home() {
             <NavLink>
               <Link to="/expense/month">show by month</Link>
             </NavLink>
+            <NavLink>
+              <Link to="/expense/day">show by day</Link>
+            </NavLink>
           </NavDropdown>
 
           <NavDropdown title="Income" id="navbardropdown2">
@@ -92,6 +105,9 @@ function Home() {
                 {decoded.email}({decoded.name})
               </a>
             </Navbar.Text>
+            <div className="text-center mt-2">
+              <Button onClick={logout}>LOG OUT</Button>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -114,10 +130,10 @@ function Home() {
         ))}
       </Row>
 
-      <h1>EXPENSE</h1>
-      <Row className="text-center mt-2">
+      <div className="text-center">
+        <h1>EXPENSE</h1>
         <Button onClick={expenseInformation}>Add Expense</Button>
-      </Row>
+      </div>
 
       <Row>
         {expense?.map((item, expenseId) => (
@@ -132,10 +148,6 @@ function Home() {
           />
         ))}
       </Row>
-
-      <div className="text-center mt-2">
-        <Button onClick={logout}>LOG OUT</Button>
-      </div>
     </>
   );
 }

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { updateIncomeCardFunc } from "Containers/ecommerce/action";
 import { useNavigate } from "react-router";
 import Modal from "react-modal";
+import Moment from "react-moment";
 
 const customStyles = {
   content: {
@@ -52,7 +53,7 @@ const CardComponentIncome = (data) => {
       <Card style={{ width: "18rem" }} className="text-center">
         <div
           className="controls d-flex flex-row-reverse"
-          style={{ position: "absolute", bottom: "20px" }}
+          style={{ position: "absolute", top: "10px", right: "5px" }}
         >
           <Button variant="Danger" onClick={openModal} style={{ color: "red" }}>
             <AiFillDelete />
@@ -75,7 +76,13 @@ const CardComponentIncome = (data) => {
           <Card.Text>{amount}</Card.Text>
           <Card.Text>{date}</Card.Text>
           <Card.Text>{new Date(created_at).toLocaleString()}</Card.Text>
-          <Card.Text>{new Date(updated_at).toLocaleString()}</Card.Text>
+          {updated_at ? (
+            <Card.Text>
+              updated: <Moment fromNow>{updated_at}</Moment>
+            </Card.Text>
+          ) : (
+            <Card.Text>not yet updated</Card.Text>
+          )}
         </Card.Body>
       </Card>
     </Col>
