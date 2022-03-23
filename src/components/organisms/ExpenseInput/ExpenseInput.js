@@ -1,22 +1,29 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router";
+// import { useNavigate } from "react-router";
 import {
+  handleFetchExpenses,
   saveNewExpense,
   updateOldExpense,
 } from "../../../Containers/ecommerce/action";
 
-const ExpenseInformation = () => {
-  const navigate = useNavigate();
+// eslint-disable-next-line react/prop-types
+const ExpenseInformation = ({ closeModal, data }) => {
+  console.log(
+    "🚀 ~ file: ExpenseInput.js ~ line 13 ~ ExpenseInformation ~ data",
+    data
+  );
+  // const { id, title, amount, date, created_at, updated_at } = data;
+  // const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm();
-  const location = useLocation();
+  // const location = data.location;
   const dispatch = useDispatch();
   useEffect(async () => {
-    if (location.state) {
-      const { id, title, amount, date, created_at, updated_at } =
-        location.state;
+    if (data) {
+      const { id, title, amount, date, created_at, updated_at } = data;
       setValue("id", id);
       setValue("title", title);
       setValue("amount", amount);
@@ -28,12 +35,15 @@ const ExpenseInformation = () => {
 
   const saveSubmit = async (data) => {
     dispatch(saveNewExpense(data));
-    navigate("/home");
+    closeModal();
   };
 
   const saveUpdate = async (data) => {
-    dispatch(updateOldExpense(data));
-    navigate("/home");
+    const res = dispatch(updateOldExpense(data));
+    console.log("🚀 ~ file: ExpenseInput.js ~ line 43 ~ saveUpdate ~ res", res);
+
+    dispatch(handleFetchExpenses());
+    closeModal();
   };
 
   function handleChange(e) {
@@ -45,14 +55,12 @@ const ExpenseInformation = () => {
     <>
       <div className="card">
         <div className="card-header">
-          {location.state ? "Edit " : "Add "} Expenses Here!
+          {data ? "Edit " : "Add "} Expenses Here!
         </div>
         <div className="card-body">
           <Form
             onSubmit={
-              location.state
-                ? handleSubmit(saveUpdate)
-                : handleSubmit(saveSubmit)
+              data ? handleSubmit(saveUpdate) : handleSubmit(saveSubmit)
             }
           >
             <Row className="form-row form-group">
