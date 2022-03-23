@@ -24,7 +24,7 @@ const CardComponent = (data) => {
   return (
     <Col className="col-10 col-md-4 mt-2 mr-2">
       <Card style={{ width: "18rem" }} className="text-center">
-        <div className="d-flex flex-row-reverse">
+        <div className="d-flex flex-row-reverse space-around dark">
           <Button variant="Danger" onClick={onDelete}>
             <AiFillDelete />
           </Button>
@@ -42,11 +42,10 @@ const CardComponent = (data) => {
           </Card.Text>
           {updated_at ? (
             <Card.Text>
-              updated:
-              <Moment fromNow>{updated_at}</Moment>
+              updated: <Moment fromNow>{updated_at}</Moment>
             </Card.Text>
           ) : (
-            <Card.Text> </Card.Text>
+            <Card.Text>not yet updated</Card.Text>
           )}
         </Card.Body>
       </Card>
