@@ -21,6 +21,22 @@ import {
 import { selectIncomes } from "Containers/ecommerce/IncomeReducer";
 import { Link } from "react-router-dom";
 import { LogOutt } from "Containers/ecommerce/action";
+import Modal from "react-modal";
+import { ExpenseInformation } from "components/organisms/ExpenseInput";
+
+const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.75",
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 function Home() {
   const navigate = useNavigate();
@@ -32,22 +48,20 @@ function Home() {
   function incomeInformation() {
     navigate("/income/input");
   }
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   //For loading income and expenses automatically
   useEffect(() => {
     dispatch(retrieveIncome());
     dispatch(handleFetchExpenses());
-    // const decoded = jwtDecode(storedJwt);
-    // let expireDate = decoded.exp;
-    // // let login = useSelector((state) => state.login?.isAuthenticate);
-    // let currentTimeInMillisecs = new Date().getTime();
-    // var currentTimeInSecs = currentTimeInMillisecs / 1000;
-    // if (expireDate > currentTimeInSecs) {
-    //   navigate("/Home");
-    // } else {
-    //   localStorage.removeItem("token");
-    //   navigate("/");
-    // }
   }, []);
 
   //For logging out
@@ -58,14 +72,26 @@ function Home() {
   };
 
   //For adding more expenses
-  function expenseInformation() {
-    navigate("/expense/input");
-  }
+  // function expenseInformation() {
+  //   navigate("/expense/input");
+  // }
+
+  // const navigate = useNavigate();
+
+  // const dispatch = useDispatch();
 
   return (
-    <>
+    <div className="bg-light">
       <Navbar bg="dark" variant="dark">
         <Container>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <ExpenseInformation closeModal={closeModal} />
+          </Modal>
           <Navbar.Brand href="/home">
             <img
               alt=""
@@ -76,8 +102,14 @@ function Home() {
             />{" "}
             Income/Expense Tracker
           </Navbar.Brand>
-          <Nav.Link href="/home">Home</Nav.Link>
-          <NavDropdown title="Expense" id="navbardropdown">
+          <Nav.Link href="/home" className="text-light">
+            Home
+          </Nav.Link>
+          <NavDropdown
+            className="text-light"
+            title="Expense"
+            id="navbardropdown"
+          >
             <NavLink>
               <Link to="/expense/month">show by month</Link>
             </NavLink>
@@ -92,17 +124,29 @@ function Home() {
                 {decoded.email}({decoded.name})
               </a>
             </Navbar.Text>
-            <div className="text-center mt-2">
-              <Button onClick={logout}>LOG OUT</Button>
+            <div className="text-center m-2">
+              <Button onClick={logout} className="btn-danger">
+                LOG OUT
+              </Button>
             </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="text-center">
-        <h1>INCOME</h1>
-        <Button onClick={incomeInformation}>add income</Button>
+
+      <hr />
+
+      <div className="text-center position-relative">
+        <div className="d-flex justify-content-center align-items-center">
+          <h1>INCOME</h1>
+        </div>
+        <div className="d-flex position-absolute top-0 end-0">
+          <Button onClick={incomeInformation} className="m-2">
+            Add Income
+          </Button>
+        </div>
       </div>
 
+      <hr />
       <Row className="text-center">
         {income?.map((item, incomeId) => (
           <CardComponentIncome
@@ -116,11 +160,18 @@ function Home() {
         ))}
       </Row>
 
-      <div className="text-center">
-        <h1>EXPENSE</h1>
-        <Button onClick={expenseInformation}>Add Expense</Button>
+      <hr />
+      <div className="text-center position-relative">
+        <div className="d-flex justify-content-center align-items-center">
+          <h1>EXPENSE</h1>
+        </div>
+        <div className="d-flex position-absolute top-0 end-0">
+          <Button onClick={openModal} className="m-2">
+            Add Expense
+          </Button>
+        </div>
       </div>
-
+      <hr />
       <Row>
         {expense?.map((item, expenseId) => (
           <CardComponent
@@ -134,7 +185,7 @@ function Home() {
           />
         ))}
       </Row>
-    </>
+    </div>
   );
 }
 
