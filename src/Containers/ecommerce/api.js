@@ -71,12 +71,3 @@ export const fetchIncomeById = async (payload) => {
   const res = await axios.get(url, { ...others });
   return res.data;
 };
-
-//Post Users
-
-export const addUser = async (payload) => {
-  const { ...others } = payload;
-  const url = `api/users`;
-  const res = await axios.post(url, { ...others });
-  return res.data;
-};
