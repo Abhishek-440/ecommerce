@@ -25,7 +25,7 @@ const ExpenseMonth = () => {
   }, []);
   return (
     <div>
-      {datee.map((item) => {           
+      {datee.map((item) => {
         let sum = 0;
         const thisMonthData = expense?.filter(
           (x) => moment(x.date).format("YYYY/MM") === item

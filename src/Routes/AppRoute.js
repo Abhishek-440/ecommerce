@@ -34,19 +34,17 @@ function AppRoute() {
     }
   }
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route element={<ProtectedRoutes login={login} />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/expense/input" element={<ExpenseInformation />} />
-          <Route path="/expense/month" element={<ExpenseMonth />} />
-          <Route path="/income/input" element={<IncomeInformation />} />
-          <Route path="/expense/day" element={<ExpenseDay />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route element={<ProtectedRoutes login={login} />}>
+        <Route path="/home" element={<Home />} />
+        <Route path="/expense/input" element={<ExpenseInformation />} />
+        <Route path="/expense/month" element={<ExpenseMonth />} />
+        <Route path="/income/input" element={<IncomeInformation />} />
+        <Route path="/expense/day" element={<ExpenseDay />} />
+      </Route>
+    </Routes>
   );
 }
 
