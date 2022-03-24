@@ -171,3 +171,11 @@ export function removeExpense(id) {
     dispatch(expenseDeleted(response.expense));
   };
 }
+
+// Add Users
+
+// export function addUserInApp(payload) {
+//   return async function (dispatch) {
+//     const response = await addUser(payload)
+//   }
+// }

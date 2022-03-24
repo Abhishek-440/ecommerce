@@ -12,11 +12,13 @@ export const fetchExpenses = async () => {
 export const createExpense = async (payload) => {
   const url = "/api/expense";
   const res = await axios.post(url, { ...payload });
+  console.log("🚀 ~ file: api.js ~ line 15 ~ createExpense ~ res", res);
   return res.data;
 };
 
 export const updateExpense = async (payload) => {
   const { id, ...others } = payload;
+  console.log("🚀 ~ file: api.js ~ line 20 ~ updateExpense ~ id", id);
   const url = `/api/expense/${id}`;
   const res = await axios.put(url, { ...others });
   return res.data;
