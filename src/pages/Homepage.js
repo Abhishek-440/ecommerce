@@ -124,6 +124,15 @@ function Home() {
                 {decoded.email}({decoded.name})
               </a>
             </Navbar.Text>
+            <div>
+              <img
+                alt=""
+                src={`http://localhost:3005/${decoded.profile_picture}`}
+                width="100"
+                height="30"
+                className="d-inline-block align-top"
+              />
+            </div>
             <div className="text-center m-2">
               <Button onClick={logout} className="btn-danger">
                 LOG OUT
