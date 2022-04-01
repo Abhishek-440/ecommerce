@@ -3,10 +3,10 @@ import {
   Row,
   Button,
   Navbar,
+  NavLink,
   Container,
   Nav,
   NavDropdown,
-  NavLink,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,6 +65,7 @@ function Home() {
     dispatch(handleFetchExpenses());
   }, []);
 
+  //  const auth = useAuth();
   //For logging out
   const logout = async () => {
     await dispatch(LogOutt()); //specific item from local storage
@@ -122,6 +123,16 @@ function Home() {
           <Nav.Link href="/users" className="text-light">
             Users
           </Nav.Link>
+
+          <NavDropdown title="Income" id="navbardropdown2">
+            <NavLink>
+              <Link to="/income/month">Sum by month</Link>
+            </NavLink>
+            <NavLink>
+              <Link to="/income/day">Sum by day</Link>
+            </NavLink>
+          </NavDropdown>
+
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               Signed in as:{" "}

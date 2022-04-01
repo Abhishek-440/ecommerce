@@ -1,9 +1,0 @@
-import { combineReducers } from "redux";
-
-import expenseReducer from "./Containers/ecommerce/IncomeReducer";
-
-const rootReducer = combineReducers({
-  expense: expenseReducer,
-});
-
-export default rootReducer;
