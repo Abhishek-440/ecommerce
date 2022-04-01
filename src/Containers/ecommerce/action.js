@@ -5,7 +5,13 @@ import {
   DELETE_INCOME,
 } from "./actionTypes.js";
 
-import { createIncome, deleteIncome, fetchIncome, updateIncome } from "./api";
+import {
+  createIncome,
+  deleteIncome,
+  fetchIncome,
+  updateIncome,
+  updateUser,
+} from "./api";
 
 import {
   createExpense,
@@ -13,6 +19,8 @@ import {
   fetchExpenses,
   updateExpense,
 } from "./api";
+
+import { fetchUser, deleteUser } from "./api";
 
 import { axios } from "../../utils";
 
@@ -124,8 +132,14 @@ export const expenseDeleted = (expenseId) => ({
   payload: expenseId,
 });
 
+export const setLoading = (payload) => ({
+  type: "expenses/setLoading",
+  payload,
+});
+
 export function handleFetchExpenses() {
   return async function handleFetchData(dispatch) {
+    dispatch(setLoading(true));
     const response = await fetchExpenses();
     dispatch(
       expensesLoaded(
@@ -172,10 +186,50 @@ export function removeExpense(id) {
   };
 }
 
-// Add Users
+// Users List
 
-// export function addUserInApp(payload) {
-//   return async function (dispatch) {
-//     const response = await addUser(payload)
-//   }
-// }
+export const usersFetch = (users) => ({
+  type: "users/usersFetch",
+  payload: users,
+});
+
+export const usersDeleted = (userId) => ({
+  type: "users/usersDeleted",
+  payload: userId,
+});
+
+export const usersUpdated = (payload) => ({
+  type: "users/usersUpdated",
+  payload,
+});
+
+export function handleFetchUsers() {
+  return async function (dispatch) {
+    const response = await fetchUser();
+    dispatch(
+      usersFetch(
+        response?.users.map((item) => ({
+          ...item,
+        }))
+      )
+    );
+  };
+}
+
+export function removeUser(id) {
+  return async function (dispatch) {
+    const response = await deleteUser(id);
+    dispatch(usersDeleted(response.user));
+  };
+}
+
+export function updateOldUser(payload) {
+  return async function (dispatch) {
+    const response = await updateUser(payload);
+    dispatch(
+      usersUpdated({
+        ...response.users,
+      })
+    );
+  };
+}

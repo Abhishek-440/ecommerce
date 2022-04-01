@@ -38,6 +38,7 @@ axios.interceptors.response.use(
   }
 );
 
-axios.defaults.baseURL = "http://localhost:3005";
+// eslint-disable-next-line no-undef
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 export default axios;

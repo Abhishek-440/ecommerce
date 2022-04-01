@@ -49,6 +49,7 @@ function Home() {
     navigate("/income/input");
   }
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const loading = useSelector((state) => state.expense.loading);
 
   function openModal() {
     setIsOpen(true);
@@ -79,7 +80,8 @@ function Home() {
   // const navigate = useNavigate();
 
   // const dispatch = useDispatch();
-
+  console.log(loading);
+  if (loading) return <div>Loading...</div>;
   return (
     <div className="bg-light">
       <Navbar bg="dark" variant="dark">
@@ -117,6 +119,9 @@ function Home() {
               <Link to="/expense/day">show by day</Link>
             </NavLink>
           </NavDropdown>
+          <Nav.Link href="/users" className="text-light">
+            Users
+          </Nav.Link>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               Signed in as:{" "}

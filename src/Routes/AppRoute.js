@@ -2,7 +2,14 @@
 import React from "react";
 import { Navigate } from "react-router";
 import { Routes, Route, Outlet } from "react-router-dom";
-import { Login, Register, Home, ExpenseMonth, ExpenseDay } from "../pages";
+import {
+  Login,
+  Register,
+  Home,
+  ExpenseMonth,
+  ExpenseDay,
+  UserList,
+} from "../pages";
 import { ExpenseInformation } from "../components/organisms/ExpenseInput";
 import { IncomeInformation } from "components/organisms/IncomeInput";
 import { useSelector } from "react-redux";
@@ -44,6 +51,7 @@ function AppRoute() {
           <Route path="/expense/month" element={<ExpenseMonth />} />
           <Route path="/income/input" element={<IncomeInformation />} />
           <Route path="/expense/day" element={<ExpenseDay />} />
+          <Route path="/users" element={<UserList />} />
         </Route>
       </Routes>
     </>

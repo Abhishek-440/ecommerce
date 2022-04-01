@@ -3,5 +3,6 @@ import Register from "./Register";
 import Login from "./Login";
 import ExpenseMonth from "./ExpenseMonth";
 import ExpenseDay from "./ExpenseDay";
+import UserList from "./UserList";
 
-export { Register, Home, Login, ExpenseMonth, ExpenseDay };
+export { Register, Home, Login, ExpenseMonth, ExpenseDay, UserList };

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
-//import * as yup from "yup";
-//import { yupResolver } from "@hookform/resolvers/yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-// import { useNavigate } from "react-router";
+import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router";
 // import { addUser } from "Containers/ecommerce/api";
+//import * as yup from "yup";
+//import { yupResolver } from "@hookform/resolvers/yup";
 
 /* const schema = yup.object({
   name: yup.string().required("This field is required"),
@@ -26,7 +27,12 @@ import axios from "axios";
 }); */
 
 const Register = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const { acceptedFiles, getInputProps, getRootProps } = useDropzone({
+    accept: "image/jpeg,image/png",
+  });
+
   const [data, setData] = useState({
     name: "",
     address: "",
@@ -53,12 +59,13 @@ const Register = () => {
     });
   };
 
-  const handleFileChange = (e) => {
-    setData({
-      ...data,
-      profile_picture: e.target.files,
-    });
-  };
+  // const handleFileChange = (e) => {
+  //   e.stopPropagation();
+  //   setData({
+  //     ...data,
+  //     profile_picture: e.target.files,
+  //   });
+  // };
 
   const handleData = (e) => {
     // e.preventDefault();
@@ -73,7 +80,7 @@ const Register = () => {
     //   password: data.password,
     //   profile_picture: data.profile_picture,
     // };
-    console.log("hello");
+    // console.log("hello");
     // let config = {
     //   headers: {
     //     "content-type": "multipart/form-data",
@@ -87,13 +94,15 @@ const Register = () => {
     formData.append("date_of_birth", data.dob);
     formData.append("active", true);
     formData.append("password", data.password);
-    formData.append("profile_picture", data.profile_picture[0]);
+    formData.append("profile_picture", acceptedFiles[0]);
 
     axios
       .post("http://localhost:3005/api/auth/register", formData)
       .then((response) => {
         console.log(response);
-        console.log(formData);
+        if (response === 201) {
+          navigate("/login");
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -107,6 +116,12 @@ const Register = () => {
       });
   };
   const { handleSubmit } = useForm();
+
+  const acceptedFileItems = acceptedFiles.map((file) => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
 
   //const onSubmit = (value) => console.log(value);
 
@@ -230,12 +245,16 @@ const Register = () => {
 
           <Form.Group controlId="formFileSm" className="mb-3">
             <Form.Label>Please Upload your picture</Form.Label>
-            <Form.Control
-              type="file"
-              size="sm"
-              name="profile_picture"
-              onChange={handleFileChange}
-            />
+            <section>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} name="profile_picture" />
+                <p>Drag and drop your profile picture here!</p>
+              </div>
+              <aside>
+                <h4>Accepted File</h4>
+                <ul>{acceptedFileItems}</ul>
+              </aside>
+            </section>
           </Form.Group>
 
           <Button variant="primary" type="submit">
